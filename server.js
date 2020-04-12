@@ -43,7 +43,7 @@ app.get('/todos', function(req, res) {
 	}).then(function(todos) {
 		res.json(todos);
 	}, function(e) {
-		res.status(500).json(e);
+		res.status(500).send(e);
 	});
 
 });
