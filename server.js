@@ -59,7 +59,7 @@ app.get('/todos/:id', function(req, res) {
 			res.status(404).send();
 		}
 	}, function(e) {
-		res.status(500).json(e);
+		res.status(500).send(e);
 	});
 
 });
@@ -72,23 +72,10 @@ app.post('/todos', function(req, res) {
 	db.todo.create(body).then(function(todo) {
 		res.json(todo.toJSON());
 	}, function(e) {
-		res.status(400).json(e);
+		res.status(400).send(e);
 	}).catch(function(e) {
-		res.status(400).json(e);
+		res.status(400).send(e);
 	});
-
-
-
-	// if (!_.isBoolean(body.completed) || !_.isString(body.description) || body.description.trim().length === 0) {
-	// 	return res.status(400).send();
-	// }
-
-	// body.description = body.description.trim();
-	// body.id = todoNextId++;
-
-	// todos.push(body);
-
-	// res.json(body);
 });
 
 
