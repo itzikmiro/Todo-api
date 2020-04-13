@@ -37,7 +37,7 @@ app.get('/todos', function(req, res) {
     where = {
     			completed: false,
  	 			description: {
- 	 				$like: '%' + query.q + '%'
+ 	 				new Object($like): '%' + query.q + '%'
  	 			}
  	 		}
 	console.log(where);
