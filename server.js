@@ -24,19 +24,22 @@ app.get('/todos', function(req, res) {
 	var query = req.query;
 	var where = {};
 	console.log(query);
-	if (query.hasOwnProperty('completed') && query.completed === 'true') {
-		where.completed = true;
-	} else if (query.hasOwnProperty('completed') && query.completed === 'false') {
-		where.completed = false;
-	}
+	// if (query.hasOwnProperty('completed') && query.completed === 'true') {
+	// 	where.completed = true;
+	// } else if (query.hasOwnProperty('completed') && query.completed === 'false') {
+	// 	where.completed = false;
+	// }
 
-	if (query.hasOwnProperty('q') && query.q.length > 0) {
-		where.description.$like = '%' + query.q + '%' ;
-		/*{
-			$like: '%' + query.q + '%'
-		};*/
-	}
-
+	// if (query.hasOwnProperty('q') && query.q.length > 0) {
+	// 	where.description = { 
+	// 			$like: '%' + query.q + '%' };
+	// }
+    where = {
+    			completed: false,
+ 	 			description: {
+ 	 				$like: '%' + query.q + '%'
+ 	 			}
+ 	 		}
 	console.log(where);
 	db.todo.findAll({where: where}).then(function(todos) {
 		res.json(todos);
