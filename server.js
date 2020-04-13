@@ -22,9 +22,8 @@ app.get('/', function(req, res) {
 // GET /todos?comleted=true&q=work
 app.get('/todos', function(req, res) {
 	var query = req.query;
-
 	var where = {};
-
+	console.log(q);
 	if (query.hasOwnProperty('completed') && query.completed === 'true') {
 		where.completed = true;
 	} else if (query.hasOwnProperty('completed') && query.completed === 'false') {
@@ -37,16 +36,15 @@ app.get('/todos', function(req, res) {
 		};
 	}
 
-
-	db.todo.findAll({
-		where: where
-	}).then(function(todos) {
+	console.log(where);
+	db.todo.findAll({where: where}).then(function(todos) {
 		res.json(todos);
 	}, function(e) {
 		res.status(500).send(e);
 	});
 
 });
+
 
 // GET /todos/:id
 app.get('/todos/:id', function(req, res) {
