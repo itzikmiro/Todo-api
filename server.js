@@ -33,7 +33,7 @@ app.get('/todos', function(req, res) {
 	if (query.hasOwnProperty('q') && query.q.length > 0) {
 		where.description =  
 		//{ [Op.like] : '%' + query.q + '%'};
-		{ $like: '%' + query.q + '%' };
+		{ $illike: '%' + query.q + '%' };
 	}
 
 	console.log(where);
