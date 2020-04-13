@@ -18,7 +18,7 @@ app.get('/', function(req, res) {
 	res.send('Todo API Root');
 });
 
-
+const Op = db.Sequelize.Op;
 // GET /todos?comleted=true&q=work
 app.get('/todos', function(req, res) {
 	var query = req.query;
@@ -31,8 +31,9 @@ app.get('/todos', function(req, res) {
 	}
 
 	if (query.hasOwnProperty('q') && query.q.length > 0) {
-		where.description = { 
-			$like: '%' + query.q + '%' };
+		where.description =  
+		//{ [Op.like] : '%' + query.q + '%'};
+		{ $like: '%' + query.q + '%' };
 	}
 
 	console.log(where);
