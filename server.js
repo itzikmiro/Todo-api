@@ -31,13 +31,27 @@ app.get('/todos', function(req, res) {
 	}
 
 	if (query.hasOwnProperty('q') && query.q.length > 0) {
-		where.description =  
-		//{ [Op.like] : '%' + query.q + '%'};
-		{ $iLike: '%' + query.q + '%' };
+		if (process.env.NODE_ENV) {
+			where.description =
+				//{ [Op.like] : '%' + query.q + '%'};
+				{
+					$iLike: '%' + query.q + '%'
+				};
+		} else {
+			where.description =
+				//{ [Op.like] : '%' + query.q + '%'};
+				{
+					$like: '%' + query.q + '%'
+				};
+		}
+
+
 	}
 
 	console.log(where);
-	db.todo.findAll({where: where}).then(function(todos) {
+	db.todo.findAll({
+		where: where
+	}).then(function(todos) {
 		res.json(todos);
 	}, function(e) {
 		res.status(500).send(e);
