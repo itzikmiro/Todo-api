@@ -127,9 +127,9 @@ app.put('/todos/:id', function(req, res) {
 	if (body.hasOwnProperty('description')) {
 		attributes.description = body.description;
 	}
-	console.log(attributes);
+	
 	db.todo.findById(todoId).then(function(todo) {
-		console.log(todo);
+		
 		if (todo) {
 			return todo.update(attributes).then(function(todo) {
 				console.log(todo);
