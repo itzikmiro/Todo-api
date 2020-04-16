@@ -4,7 +4,7 @@ var _ = require('underscore');
 var app = express();
 var db = require('./db.js');
 var bcrypt = require('bcrypt');
-
+var middleware = require('./middleware.js')(db);
 
 
 var PORT = process.env.PORT || 3000;
@@ -20,8 +20,10 @@ app.get('/', function(req, res) {
 });
 
 const Op = db.Sequelize.Op;
+
+
 // GET /todos?comleted=true&q=work
-app.get('/todos', function(req, res) {
+app.get('/todos', middleware.requireAuthentication, function(req, res) {
 	var query = req.query;
 	var where = {};
 	console.log(query);
@@ -49,7 +51,7 @@ app.get('/todos', function(req, res) {
 
 	}
 
-	console.log(where);
+	//console.log(where);
 	db.todo.findAll({
 		where: where
 	}).then(function(todos) {
@@ -62,7 +64,7 @@ app.get('/todos', function(req, res) {
 
 
 // GET /todos/:id
-app.get('/todos/:id', function(req, res) {
+app.get('/todos/:id' , middleware.requireAuthentication , function(req, res) {
 	var todoId = parseInt(req.params.id, 10);
 
 	db.todo.findById(todoId).then(function(todo) {
@@ -78,7 +80,7 @@ app.get('/todos/:id', function(req, res) {
 });
 
 // POST /todos
-app.post('/todos', function(req, res) {
+app.post('/todos', middleware.requireAuthentication, function(req, res) {
 
 	var body = _.pick(req.body, 'description', 'completed');
 
@@ -116,7 +118,7 @@ app.delete('/todos/:id', function(req, res) {
 });
 
 // PUT  /todos/:id
-app.put('/todos/:id', function(req, res) {
+app.put('/todos/:id', middleware.requireAuthentication, function(req, res) {
 	var todoId = parseInt(req.params.id, 10);
 	var body = _.pick(req.body, 'description', 'completed');
 	var attributes = {};
