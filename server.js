@@ -197,6 +197,7 @@ app.post('/users/login', function(req, res) {
 
 });
 
+
 db.sequelize.sync({
 	force: true 
 }).then(function() {
