@@ -23,7 +23,7 @@ db.sequelize = sequelize;
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-db.todo.belongsTo(db.user);
+db.todo.belongsTo(db.user, { foreignKey: 'user' });
 db.user.hasMany(db.todo);
 
 module.exports = db;
