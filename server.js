@@ -50,7 +50,6 @@ app.get('/todos', middleware.requireAuthentication, function(req, res) {
 				};
 		}
 
-
 	}
 
 	//console.log(where);

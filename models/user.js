@@ -12,7 +12,6 @@ module.exports = function(sequelize, DataTypes) {
 			validate: {
 				isEmail: true
 			}
-
 		},
 		salt: {
 			type: DataTypes.STRING
@@ -61,7 +60,6 @@ module.exports = function(sequelize, DataTypes) {
 						if (!user || !bcrypt.compareSync(body.password, user.get('password_hash'))) {
 							return reject();
 						}
-
 						resolve(user);
 					}, function(e) {
 						reject();
@@ -99,7 +97,6 @@ module.exports = function(sequelize, DataTypes) {
 				if (!_.isString(type)) {
 					return undefined;
 				}
-
 				try {
 					var stringData = JSON.stringify({
 						id: this.get('id'),
