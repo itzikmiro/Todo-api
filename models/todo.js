@@ -3,7 +3,7 @@ module.exports = function(sequelize, DataTypes) {
 		description: {
 			type: DataTypes.STRING,
 			allowNull: false,
-			validate: {
+			validate: { 			
 				len: [1, 250]
 			}
 
@@ -13,6 +13,6 @@ module.exports = function(sequelize, DataTypes) {
 			allowNull: false,
 			defaultValue: false
 		},
-	
+
 	});
 };

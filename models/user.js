@@ -76,7 +76,7 @@ module.exports = function(sequelize, DataTypes) {
 						user.findById(tokenData.id).then(function(user) {
 							if (user) {
 								resolve(user);
-							}else {
+							} else {
 								reject();
 							}
 						}, function(e) {
